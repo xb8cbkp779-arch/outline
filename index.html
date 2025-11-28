@@ -1,0 +1,743 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Virtue &amp; Resilience Framework</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #e8eaed;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #2a2a2a;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #3a4b6b 0%, #4a3b5c 100%);
+            color: #f0f0f0;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: #667eea;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+            font-weight: 600;
+        }
+
+        .subsection {
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: #3a3a3a;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #555;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+
+        .card-header {
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(90deg, #4a4a4a 0%, #5a5a5a 100%);
+            border-radius: 8px 8px 0 0;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #f0f0f0;
+        }
+
+        .card-toggle {
+            font-size: 1.2rem;
+            color: #667eea;
+            transition: transform 0.3s ease;
+        }
+
+        .card-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            padding: 0 20px;
+            color: #d0d0d0;
+        }
+
+        .card-content.expanded {
+            max-height: 2000px;
+            padding: 0 20px 20px 20px;
+            color: #d0d0d0;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .virtue-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 10px 0;
+        }
+
+        .virtue-pill {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .virtue-pill:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
+        }
+
+        .bullet-list {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+
+        .bullet-list li {
+            margin-bottom: 8px;
+            color: #c0c0c0;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 10px;
+        }
+
+        .tag {
+            background: #555;
+            color: #d0d0d0;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+        }
+
+        .role-badge {
+            background: linear-gradient(135deg, #56ab2f 0%, #a8e6cf 100%);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .function-text {
+            color: #e0e0e0;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+
+        .practice-section {
+            background: #3d3d2b;
+            border-left: 4px solid #b8860b;
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .practice-title {
+            font-weight: 600;
+            color: #d4af37;
+            margin-bottom: 10px;
+        }
+
+        .target-section {
+            scroll-margin-top: 100px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                border-radius: 8px;
+            }
+            
+            .header {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .virtue-pills {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>VIRTUE &amp; RESILIENCE</h1>
+            <p>A Framework for Building Psychological Strength</p>
+        </div>
+
+        <div class="content">
+            <div class="section">
+                <h2 class="section-title">I. EXTERNAL PRESSURE (with responses)</h2>
+                
+                <div class="subsection">
+                    <div class="card">
+                        <div class="card-header" onclick="toggleCard(this)">
+                            <div class="card-title">1. Cognitive Manipulation</div>
+                            <div class="card-toggle">▼</div>
+                        </div>
+                        <div class="card-content">
+                            <p><strong>Mechanism:</strong> Alters perception through gaslighting and information control.</p>
+                            
+                            <div class="bullet-list">
+                                <ul>
+                                    <li><strong>Psychological Impact:</strong>
+                                        <ul>
+                                            <li>Undermines self-confidence, creating confusion and chronic stress</li>
+                                            <li>Long-term stress may even affect gene expression</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="bullet-list">
+                                <ul>
+                                    <li><strong>How to Respond:</strong>
+                                        <div class="virtue-pills">
+                                            <button class="virtue-pill" onclick="jumpToVirtue(&#39;evaluative-thinking&#39;)">Evaluative Thinking</button>
+                                            <button class="virtue-pill" onclick="jumpToVirtue(&#39;sense-making&#39;)">Sense-Making</button>
+                                            <button class="virtue-pill" onclick="jumpToVirtue(&#39;self-reflection&#39;)">Self-Reflection</button>
+                                        </div>
+                                        <strong>Goal:</strong> Restore Self-trust and eliminate induced confusion
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <p><strong>Tags:</strong></p>
+                            <div class="tags">
+                                <span class="tag">gaslighting</span>
+                                <span class="tag">epistemic distortion</span>
+                                <span class="tag">reality manipulation</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <div class="card">
+                        <div class="card-header" onclick="toggleCard(this)">
+                            <div class="card-title">2. Persuasive Control</div>
+                            <div class="card-toggle">▼</div>
+                        </div>
+                        <div class="card-content">
+                            <p><strong>Mechanism:</strong> Manipulates reasoning via emotionally charged arguments and logical fallacies that sound plausible but are false.</p>
+                            
+                            <p><strong>Psychological Impact:</strong> Amplifies anxiety pushing urgency and forcing hasty decisions.</p>
+
+                            <div class="bullet-list">
+                                <ul>
+                                    <li><strong>How to Respond:</strong>
+                                        <div class="virtue-pills">
+                                            <button class="virtue-pill" onclick="jumpToVirtue(&#39;evaluative-thinking&#39;)">Evaluative Thinking</button>
+                                            <button class="virtue-pill" onclick="jumpToVirtue(&#39;impartiality&#39;)">Impartiality</button>
+                                            <button class="virtue-pill" onclick="jumpToVirtue(&#39;self-control&#39;)">Self-Control</button>
+                                        </div>
+                                        <strong>Goal:</strong> Interrupt urgency spirals and make decisions based on evidence
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <p><strong>Tags:</strong></p>
+                            <div class="tags">
+                                <span class="tag">emotional reasoning</span>
+                                <span class="tag">urgency manipulation</span>
+                                <span class="tag">persuasive fallacies</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <div class="card">
+                        <div class="card-header" onclick="toggleCard(this)">
+                            <div class="card-title">3. Normative Control</div>
+                            <div class="card-toggle">▼</div>
+                        </div>
+                        <div class="card-content">
+                            <p><strong>Mechanism:</strong> Leverages social norms, peer pressure, or authority to enforce compliance.</p>
+                            
+                            <p><strong>Psychological Impact:</strong> Generates cognitive dissonance and fear of exclusion when personal beliefs conflict with group standards.</p>
+
+                            <div class="bullet-list">
+                                <ul>
+                                    <li><strong>How to Respond:</strong>
+                                        <div class="virtue-pills">
+                                            <button class="virtue-pill" onclick="jumpToVirtue(&#39;fairness&#39;)">Fairness</button>
+                                            <button class="virtue-pill" onclick="jumpToVirtue(&#39;self-efficacy&#39;)">Self-Efficacy</button>
+                                            <button class="virtue-pill" onclick="jumpToVirtue(&#39;perseverance&#39;)">Perseverance</button>
+                                        </div>
+                                        <strong>Goal:</strong> Challenge group norms without betraying your own values; maintain sovereignty in collectives
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <p><strong>Tags:</strong></p>
+                            <div class="tags">
+                                <span class="tag">social conformity pressure</span>
+                                <span class="tag">group norms</span>
+                                <span class="tag">authority influence</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <div class="card">
+                        <div class="card-header" onclick="toggleCard(this)">
+                            <div class="card-title">4. Overt Coercion</div>
+                            <div class="card-toggle">▼</div>
+                        </div>
+                        <div class="card-content">
+                            <p><strong>Mechanism:</strong> Uses fear tactics; threats, isolation, exploitation, or rigid control.</p>
+                            
+                            <p><strong>Psychological Impact:</strong> Triggers intense fear and trauma; chronic exposure causes long-term psychological harm.</p>
+
+                            <div class="bullet-list">
+                                <ul>
+                                    <li><strong>How to Respond:</strong>
+                                        <div class="virtue-pills">
+                                            <button class="virtue-pill" onclick="jumpToVirtue(&#39;perseverance&#39;)">Perseverance</button>
+                                            <button class="virtue-pill" onclick="jumpToVirtue(&#39;self-discipline&#39;)">Self-Discipline</button>
+                                            <button class="virtue-pill" onclick="jumpToVirtue(&#39;moderation&#39;)">Moderation</button>
+                                        </div>
+                                        <strong>Goal:</strong> Outlast adversity while conserving your strength
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <p><strong>Tags:</strong></p>
+                            <div class="tags">
+                                <span class="tag">intimidation</span>
+                                <span class="tag">fear-based control</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">II. INTERNAL TOOLS (Virtues)</h2>
+                
+                <div class="subsection target-section" id="evaluative-thinking">
+                    <div class="card">
+                        <div class="card-header" onclick="toggleCard(this)">
+                            <div class="card-title">1. Evaluative Thinking</div>
+                            <div class="card-toggle">▼</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="role-badge">Truth Evaluator</div>
+                            <p class="function-text"><strong>Function:</strong> Differentiates facts from falsehoods; actively removes bias.</p>
+                            
+                            <div class="practice-section">
+                                <div class="practice-title">Practice:</div>
+                                <div class="bullet-list">
+                                    <ul>
+                                        <li>Label all claims as <strong>True</strong>, <strong>False</strong>, or <strong>Partly True</strong></li>
+                                        <li>Work to identify bias and abandon dogma</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <p><strong>Tags:</strong></p>
+                            <div class="tags">
+                                <span class="tag">critical reasoning</span>
+                                <span class="tag">truth assessment</span>
+                                <span class="tag">bias detection</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subsection target-section" id="sense-making">
+                    <div class="card">
+                        <div class="card-header" onclick="toggleCard(this)">
+                            <div class="card-title">2. Sense-Making</div>
+                            <div class="card-toggle">▼</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="role-badge">Reality Mapper</div>
+                            <p class="function-text"><strong>Function:</strong> Weaves diverse information into a single cohesive view of reality.</p>
+                            
+                            <div class="practice-section">
+                                <div class="practice-title">Practice:</div>
+                                <div class="bullet-list">
+                                    <ul>
+                                        <li>Build explanations that survive new evidence</li>
+                                        <li>Use tested frameworks to bring clarity out of chaos</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <p><strong>Tags:</strong></p>
+                            <div class="tags">
+                                <span class="tag">coherence building</span>
+                                <span class="tag">information synthesis</span>
+                                <span class="tag">epistemic triage</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subsection target-section" id="impartiality">
+                    <div class="card">
+                        <div class="card-header" onclick="toggleCard(this)">
+                            <div class="card-title">3. Impartiality</div>
+                            <div class="card-toggle">▼</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="role-badge">Bias Neutralizer</div>
+                            <p class="function-text"><strong>Function:</strong> Grounds judgment solely on evidence; makes objectivity a conscious habit.</p>
+                            
+                            <div class="practice-section">
+                                <div class="practice-title">Practice:</div>
+                                <div class="bullet-list">
+                                    <ul>
+                                        <li>Use the <strong>&#34;Veil of Ignorance&#34;</strong> and Bayesian updating</li>
+                                        <li>Name your emotion with one word to defuse emotions</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <p><strong>Tags:</strong></p>
+                            <div class="tags">
+                                <span class="tag">objectivity</span>
+                                <span class="tag">bias reduction</span>
+                                <span class="tag">evidence-based judgment</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subsection target-section" id="self-control">
+                    <div class="card">
+                        <div class="card-header" onclick="toggleCard(this)">
+                            <div class="card-title">4. Self-Control</div>
+                            <div class="card-toggle">▼</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="role-badge">Cognitive Manager</div>
+                            <p class="function-text"><strong>Function:</strong> Directs attention and action regardless of feelings; limits urges without relying on rewards.</p>
+                            
+                            <div class="practice-section">
+                                <div class="practice-title">Practice:</div>
+                                <div class="bullet-list">
+                                    <ul>
+                                        <li>Default to delayed gratification</li>
+                                        <li>Work even when motivation is low; tune out distractions</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <p><strong>Tags:</strong></p>
+                            <div class="tags">
+                                <span class="tag">impulse regulation</span>
+                                <span class="tag">attention control</span>
+                                <span class="tag">delayed gratification</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subsection target-section" id="fairness">
+                    <div class="card">
+                        <div class="card-header" onclick="toggleCard(this)">
+                            <div class="card-title">5. Fairness</div>
+                            <div class="card-toggle">▼</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="role-badge">Equity Enforcer</div>
+                            <p class="function-text"><strong>Function:</strong> Applies proportionate treatment, giving each what is due.</p>
+                            
+                            <div class="practice-section">
+                                <div class="practice-title">Practice:</div>
+                                <div class="bullet-list">
+                                    <ul>
+                                        <li>Avoid bias or favoritism</li>
+                                        <li>Admit mistakes to avoid inconsistency and build trust</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <p><strong>Tags:</strong></p>
+                            <div class="tags">
+                                <span class="tag">proportionate treatment</span>
+                                <span class="tag">moral consistency</span>
+                                <span class="tag">impartial justice</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subsection target-section" id="perseverance">
+                    <div class="card">
+                        <div class="card-header" onclick="toggleCard(this)">
+                            <div class="card-title">6. Perseverance</div>
+                            <div class="card-toggle">▼</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="role-badge">Endurance Engine</div>
+                            <p class="function-text"><strong>Function:</strong> Keeps determination through challenges and hardship, using fortitude to endure prolonged difficulty and adversity.</p>
+                            
+                            <div class="practice-section">
+                                <div class="practice-title">Practice:</div>
+                                <div class="bullet-list">
+                                    <ul>
+                                        <li>Treat fear factor as a skill to train</li>
+                                        <li>Face fear gradually and consistently to grow stronger</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <p><strong>Tags:</strong></p>
+                            <div class="tags">
+                                <span class="tag">grit</span>
+                                <span class="tag">fortitude</span>
+                                <span class="tag">sustained effort</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subsection target-section" id="self-efficacy">
+                    <div class="card">
+                        <div class="card-header" onclick="toggleCard(this)">
+                            <div class="card-title">7. Self-Efficacy</div>
+                            <div class="card-toggle">▼</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="role-badge">Builder of Identity</div>
+                            <p class="function-text"><strong>Function:</strong> Encourages you to use your capabilities, leading to personal achievements and mastery experiences.</p>
+                            
+                            <div class="practice-section">
+                                <div class="practice-title">Practice:</div>
+                                <div class="bullet-list">
+                                    <ul>
+                                        <li>Document your skills and achievements and integrate them into identity</li>
+                                        <li>See failure as a lack of skill, not a personal flaw</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <p><strong>Tags:</strong></p>
+                            <div class="tags">
+                                <span class="tag">confidence building</span>
+                                <span class="tag">mastery development</span>
+                                <span class="tag">competence</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subsection target-section" id="self-discipline">
+                    <div class="card">
+                        <div class="card-header" onclick="toggleCard(this)">
+                            <div class="card-title">8. Self-Discipline</div>
+                            <div class="card-toggle">▼</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="role-badge">Goal Driver</div>
+                            <p class="function-text"><strong>Function:</strong> Converts perseverance into daily momentum despite low-energy or apathy.</p>
+                            
+                            <div class="practice-section">
+                                <div class="practice-title">Practice:</div>
+                                <div class="bullet-list">
+                                    <ul>
+                                        <li>Make small improvements even on tough days</li>
+                                        <li>Adjust short-term goals to keep steady resilience</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <p><strong>Tags:</strong></p>
+                            <div class="tags">
+                                <span class="tag">resolve</span>
+                                <span class="tag">sustained progress</span>
+                                <span class="tag">goal-directed action</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subsection target-section" id="moderation">
+                    <div class="card">
+                        <div class="card-header" onclick="toggleCard(this)">
+                            <div class="card-title">9. Moderation</div>
+                            <div class="card-toggle">▼</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="role-badge">Resource Guardian</div>
+                            <p class="function-text"><strong>Function:</strong> Maintains stamina by treating energy as a finite resource.</p>
+                            
+                            <div class="practice-section">
+                                <div class="practice-title">Practice:</div>
+                                <div class="bullet-list">
+                                    <ul>
+                                        <li>Give 80% of focus to the few things that matter most</li>
+                                        <li>Rest fully before pushing again, never deplete willpower to zero</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <p><strong>Tags:</strong></p>
+                            <div class="tags">
+                                <span class="tag">energy management</span>
+                                <span class="tag">sustainable effort</span>
+                                <span class="tag">balanced exertion</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subsection target-section" id="self-reflection">
+                    <div class="card">
+                        <div class="card-header" onclick="toggleCard(this)">
+                            <div class="card-title">10. Self-Reflection</div>
+                            <div class="card-toggle">▼</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="role-badge">Experience Integrator</div>
+                            <p class="function-text"><strong>Function:</strong> Turns lived moments into lasting insights and improvements.</p>
+                            
+                            <div class="practice-section">
+                                <div class="practice-title">Practice:</div>
+                                <div class="bullet-list">
+                                    <ul>
+                                        <li>Reflect daily using &#34;If X happens, then I&#39;ll do Y&#34; heuristics</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <p><strong>Tags:</strong></p>
+                            <div class="tags">
+                                <span class="tag">introspection</span>
+                                <span class="tag">learning integration</span>
+                                <span class="tag">feedback processing</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleCard(header) {
+            const content = header.nextElementSibling;
+            const toggle = header.querySelector('.card-toggle');
+            const isExpanded = content.classList.contains('expanded');
+            
+            // Close all cards first
+            document.querySelectorAll('.card-content').forEach(card => {
+                card.classList.remove('expanded');
+            });
+            document.querySelectorAll('.card-toggle').forEach(tog => {
+                tog.textContent = '▼';
+            });
+            
+            // Open clicked card if it wasn't already open
+            if (!isExpanded) {
+                content.classList.add('expanded');
+                toggle.textContent = '▲';
+            }
+        }
+
+        function jumpToVirtue(virtueId) {
+            const element = document.getElementById(virtueId);
+            if (element) {
+                // Close all cards first
+                document.querySelectorAll('.card-content').forEach(card => {
+                    card.classList.remove('expanded');
+                });
+                document.querySelectorAll('.card-toggle').forEach(tog => {
+                    tog.textContent = '▼';
+                });
+                
+                // Scroll to the element
+                element.scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'center' 
+                });
+                
+                // Find and expand the target card content
+                const cardContent = element.querySelector('.card-content');
+                const cardToggle = element.querySelector('.card-toggle');
+                
+                if (cardContent) {
+                    cardContent.classList.add('expanded');
+                    if (cardToggle) cardToggle.textContent = '▲';
+                }
+                
+                // Highlight the target briefly
+                element.style.backgroundColor = '#fff3cd';
+                setTimeout(() => {
+                    element.style.backgroundColor = 'transparent';
+                }, 2000);
+            }
+        }
+    </script>
+</body></html>
